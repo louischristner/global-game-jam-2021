@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: castleCenter
+  m_Name: mapblocks_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 0c00d31067b44e34c8ecb8a7b5b2d7be, type: 3}
+  m_Sprite: {fileID: -846308230641477573, guid: a9c6df354ff3d674b8cde30161aecc78,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
