@@ -10,7 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float jumpForce;
 
+    Animator animator;
+
     bool canJump = false;
+    bool isFacingRight = true;
 
     Rigidbody2D rb;
 
@@ -18,6 +21,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
     private void Move()
@@ -31,6 +41,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow)) {
             movement.x += Time.deltaTime * speed;
         }
+
+        if (movement.x > 0 && !isFacingRight) {
+            Flip();
+        } else if (movement.x < 0 && isFacingRight) {
+            Flip();
+        }
+
+        animator.SetBool("IsMoving",
+            (movement.x > 0 || movement.x < 0));
 
         transform.Translate(movement);
     }
