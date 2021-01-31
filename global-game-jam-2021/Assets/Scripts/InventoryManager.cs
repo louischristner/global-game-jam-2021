@@ -30,7 +30,7 @@ public class InventoryManager : MonoBehaviour
         mainInventory.SetActive(isActive);
     }
 
-    private bool EquippedFeatureBoxesContainsName(string name)
+    public bool EquippedFeatureBoxesContainsName(string name)
     {
         for (int i = 0; i < equippedFeatureBoxes.Count; i++)
             if (equippedFeatureBoxes[i]._name == name)
@@ -38,7 +38,6 @@ public class InventoryManager : MonoBehaviour
 
         return false;
     }
-
 
     // Update is called once per frame
     void Update()
@@ -73,7 +72,8 @@ public class InventoryManager : MonoBehaviour
                 if (featureBoxes[j]._name == equippedFeatureBoxes[i]._name)
                     isEquipped = featureSlots[i].isEquipped;
 
-            equippedFeatureBoxes.Remove(equippedFeatureBoxes[i]);
+            if (!isEquipped)
+                equippedFeatureBoxes.Remove(equippedFeatureBoxes[i]);
         }
     }
 
