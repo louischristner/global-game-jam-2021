@@ -25,12 +25,15 @@ public class PlayerMovement : MonoBehaviour
     Tilemap tilemap;
 
     Rigidbody2D rb;
+    InventoryManager im;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        im = GetComponent<InventoryManager>();
         animator = GetComponent<Animator>();
+
         if (tilemapGameObject != null)
         {
             tilemap = tilemapGameObject.GetComponent<Tilemap>();
@@ -79,22 +82,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((other.gameObject.layer == 9 && !canSwimInLava) || (other.gameObject.layer == 4 && !canSwimInWater))
             SceneManager.LoadScene("SampleScene");
-            
     }
 
-   void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector3 hitPosition = Vector3.zero;
+        if (tilemap != null && tilemapGameObject == collision.gameObject && canMine)
         {
-            Vector3 hitPosition = Vector3.zero;
-            if (tilemap != null && tilemapGameObject == collision.gameObject && canMine)
+            foreach (ContactPoint2D hit in collision.contacts)
             {
-                foreach (ContactPoint2D hit in collision.contacts)
-                {
-                    hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
-                    hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
-                    tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
-                }
+                hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
+                hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
+                tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
             }
         }
+    }
 
     // Update is called once per frame
     void Update()
@@ -111,5 +113,12 @@ public class PlayerMovement : MonoBehaviour
 				canJump = true;
 			}
 		}
+
+        if (!im.EquippedFeatureBoxesContainsName("Jump"))
+            canJump = false;
+
+        canMine = im.EquippedFeatureBoxesContainsName("Mine");
+        canSwimInLava = im.EquippedFeatureBoxesContainsName("Lava");
+        canSwimInWater = im.EquippedFeatureBoxesContainsName("Water");
     }
 }
