@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,7 +11,15 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float jumpForce;
 
+    Animator animator;
+
     bool canJump = false;
+    bool isFacingRight = true;
+
+    public bool canMine = true; 
+    public GameObject tilemapGameObject;
+     
+    Tilemap tilemap;
 
     Rigidbody2D rb;
 
@@ -18,6 +27,17 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        if (tilemapGameObject != null)
+        {
+            tilemap = tilemapGameObject.GetComponent<Tilemap>();
+        }
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
     private void Move()
@@ -32,6 +52,15 @@ public class PlayerMovement : MonoBehaviour
             movement.x += Time.deltaTime * speed;
         }
 
+        if (movement.x > 0 && !isFacingRight) {
+            Flip();
+        } else if (movement.x < 0 && isFacingRight) {
+            Flip();
+        }
+
+        animator.SetBool("IsMoving",
+            (movement.x > 0 || movement.x < 0));
+
         transform.Translate(movement);
     }
 
@@ -42,6 +71,20 @@ public class PlayerMovement : MonoBehaviour
             canJump = false;
         }
     }
+
+   void OnCollisionEnter2D(Collision2D collision)
+        {
+            Vector3 hitPosition = Vector3.zero;
+            if (tilemap != null && tilemapGameObject == collision.gameObject && canMine)
+            {
+                foreach (ContactPoint2D hit in collision.contacts)
+                {
+                    hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
+                    hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
+                    tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
+                }
+            }
+        }
 
     // Update is called once per frame
     void Update()
