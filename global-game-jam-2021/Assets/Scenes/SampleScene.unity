@@ -44631,7 +44631,7 @@ GameObject:
   - component: {fileID: 1991616371}
   - component: {fileID: 1991616370}
   - component: {fileID: 1991616369}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45301,7 +45301,7 @@ PrefabInstance:
         type: 3}
       propertyPath: tilemapGameObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1991616367}
     - target: {fileID: 8345555956557750466, guid: 427eb59efabd3a94ab3e28f96a679d1f,
         type: 3}
       propertyPath: m_RootOrder

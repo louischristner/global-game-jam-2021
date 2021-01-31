@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerMovement : MonoBehaviour
     bool canJump = false;
     bool isFacingRight = true;
 
+    public bool canMine = true; 
+    public GameObject tilemapGameObject;
+     
+    Tilemap tilemap;
+
     Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -22,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        if (tilemapGameObject != null)
+        {
+            tilemap = tilemapGameObject.GetComponent<Tilemap>();
+        }
     }
 
     private void Flip()
@@ -61,6 +71,20 @@ public class PlayerMovement : MonoBehaviour
             canJump = false;
         }
     }
+
+   void OnCollisionEnter2D(Collision2D collision)
+        {
+            Vector3 hitPosition = Vector3.zero;
+            if (tilemap != null && tilemapGameObject == collision.gameObject && canMine)
+            {
+                foreach (ContactPoint2D hit in collision.contacts)
+                {
+                    hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
+                    hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
+                    tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
+                }
+            }
+        }
 
     // Update is called once per frame
     void Update()
