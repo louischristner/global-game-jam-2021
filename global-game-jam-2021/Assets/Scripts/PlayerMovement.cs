@@ -116,5 +116,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (!im.EquippedFeatureBoxesContainsName("Jump"))
             canJump = false;
+
+        canMine = im.EquippedFeatureBoxesContainsName("Mine");
+        canSwimInLava = im.EquippedFeatureBoxesContainsName("Lava");
+        canSwimInWater = im.EquippedFeatureBoxesContainsName("Water");
     }
 }
