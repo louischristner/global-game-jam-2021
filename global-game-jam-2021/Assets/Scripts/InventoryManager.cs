@@ -55,8 +55,13 @@ public class InventoryManager : MonoBehaviour
         List<FeatureBox> equipped = new List<FeatureBox>();
 
         for (int i = 0; i < featureSlots.Count; i++) {
-            if (featureSlots[i].isEquipped && equipped.Count < 2)
-                equipped.Add(featureBoxes[i]);
+            if (featureSlots[i].isEquipped) {
+                if (equipped.Count < 2) {
+                    equipped.Add(featureBoxes[i]);
+                } else {
+                    featureSlots[i].isEquipped = false;
+                }
+            }
         }
 
         for (int i = 0; i < equippedFeatureSlots.Count; i++) {
@@ -67,39 +72,6 @@ public class InventoryManager : MonoBehaviour
             equippedFeatureSlots[i].isEquipped = true;
             equippedFeatureSlots[i].SetFeatureName(equipped[i]._name);
         }
-
-        /*
-
-        for (int i = 0; i < featureBoxes.Count; i++) {
-            featureSlots[i].featureBoxIcon.SetActive(true);
-            featureSlots[i].SetFeatureName(featureBoxes[i]._name);
-
-            if (featureSlots[i].isEquipped && !EquippedFeatureBoxesContainsName(featureBoxes[i]._name)) {
-                equippedFeatureBoxes.Add(new FeatureBox(featureBoxes[i]._name));
-            }
-        }
-
-        for (int i = 0; i < equippedFeatureSlots.Count; i++) {
-            equippedFeatureSlots[i].isEquipped = false;
-        }
-
-        for (int i = 0; i < equippedFeatureBoxes.Count; i++) {
-            equippedFeatureSlots[i].isEquipped = true;
-            equippedFeatureSlots[i].SetFeatureName(equippedFeatureBoxes[i]._name);
-        }
-
-        for (int i = 0; i < equippedFeatureBoxes.Count; i++) {
-            bool isEquipped = false;
-
-            for (int j = 0; j < featureBoxes.Count; j++)
-                if (featureBoxes[j]._name == equippedFeatureBoxes[i]._name)
-                    isEquipped = featureSlots[i].isEquipped;
-
-            if (!isEquipped)
-                equippedFeatureBoxes.Remove(equippedFeatureBoxes[i]);
-        }
-
-        */
     }
 
     void OnCollisionEnter2D(Collision2D other)

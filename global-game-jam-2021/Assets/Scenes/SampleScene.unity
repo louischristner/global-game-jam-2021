@@ -318,7 +318,7 @@ PrefabInstance:
     - target: {fileID: 8092218049063091046, guid: 8b8a11481a8136d4e8e819e1e4879d10,
         type: 3}
       propertyPath: featureName
-      value: Water
+      value: Lava
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b8a11481a8136d4e8e819e1e4879d10, type: 3}
@@ -1704,7 +1704,7 @@ Transform:
   - {fileID: 1040261575}
   - {fileID: 582804272}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &636608583
 GameObject:
@@ -1770,7 +1770,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &650198108
 PrefabInstance:
@@ -1787,7 +1787,7 @@ PrefabInstance:
     - target: {fileID: 8037421318960121527, guid: 8b8a11481a8136d4e8e819e1e4879d10,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8037421318960121527, guid: 8b8a11481a8136d4e8e819e1e4879d10,
         type: 3}
@@ -42640,7 +42640,7 @@ RectTransform:
   m_Children:
   - {fileID: 555195803}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
