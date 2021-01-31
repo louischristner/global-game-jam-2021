@@ -19,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
     bool canJump = false;
     bool isFacingRight = true;
 
-    public bool canMine = true; 
+    public bool canMine = true;
     public GameObject tilemapGameObject;
-     
+
     Tilemap tilemap;
 
     Rigidbody2D rb;

@@ -19,6 +19,8 @@ public class InventoryManager : MonoBehaviour
     public List<FeatureSlotController> featureSlots;
     public List<EquippedFeatureBoxController> equippedFeatureSlots;
 
+    public GameObject tutoText;
+
     bool isActive = false;
 
     List<FeatureBox> featureBoxes = new List<FeatureBox>();
@@ -45,6 +47,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) {
             isActive = !isActive;
             mainInventory.SetActive(isActive);
+            tutoText.SetActive(false); // hide tuto on first key pressed
         }
 
         for (int i = 0; i < featureBoxes.Count; i++) {
