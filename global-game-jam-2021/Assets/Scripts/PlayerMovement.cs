@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     Animator animator;
 
+    public bool canSwimInLava = false;
+    public bool canSwimInWater = false;
     bool canJump = false;
     bool isFacingRight = true;
 
@@ -73,6 +76,12 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce));
             canJump = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((other.gameObject.layer == 9 && !canSwimInLava) || (other.gameObject.layer == 4 && !canSwimInWater))
+            SceneManager.LoadScene("SampleScene");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
