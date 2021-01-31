@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
     bool isActive = false;
 
     List<FeatureBox> featureBoxes = new List<FeatureBox>();
-    List<FeatureBox> equippedFeatureBoxes = new List<FeatureBox>();
+    // List<FeatureBox> equippedFeatureBoxes = new List<FeatureBox>();
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +32,8 @@ public class InventoryManager : MonoBehaviour
 
     public bool EquippedFeatureBoxesContainsName(string name)
     {
-        for (int i = 0; i < equippedFeatureBoxes.Count; i++)
-            if (equippedFeatureBoxes[i]._name == name)
+        for (int i = 0; i < featureBoxes.Count; i++)
+            if (featureBoxes[i]._name == name && featureSlots[i].isEquipped)
                 return true;
 
         return false;
@@ -46,6 +46,29 @@ public class InventoryManager : MonoBehaviour
             isActive = !isActive;
             mainInventory.SetActive(isActive);
         }
+
+        for (int i = 0; i < featureBoxes.Count; i++) {
+            featureSlots[i].featureBoxIcon.SetActive(true);
+            featureSlots[i].SetFeatureName(featureBoxes[i]._name);
+        }
+
+        List<FeatureBox> equipped = new List<FeatureBox>();
+
+        for (int i = 0; i < featureSlots.Count; i++) {
+            if (featureSlots[i].isEquipped && equipped.Count < 2)
+                equipped.Add(featureBoxes[i]);
+        }
+
+        for (int i = 0; i < equippedFeatureSlots.Count; i++) {
+            equippedFeatureSlots[i].isEquipped = false;
+        }
+
+        for (int i = 0; i < equipped.Count; i++) {
+            equippedFeatureSlots[i].isEquipped = true;
+            equippedFeatureSlots[i].SetFeatureName(equipped[i]._name);
+        }
+
+        /*
 
         for (int i = 0; i < featureBoxes.Count; i++) {
             featureSlots[i].featureBoxIcon.SetActive(true);
@@ -75,6 +98,8 @@ public class InventoryManager : MonoBehaviour
             if (!isEquipped)
                 equippedFeatureBoxes.Remove(equippedFeatureBoxes[i]);
         }
+
+        */
     }
 
     void OnCollisionEnter2D(Collision2D other)
